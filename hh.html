@@ -127,7 +127,36 @@
         </tr> 
       </tbody>
     </table>
+   <script>
+      function searchTable() {
+        var input = document.getElementById("searchInput");
+        var filter = input.value.toLowerCase();
+        var table = document.getElementById("friendsTable");
+        var tr = table.getElementsByTagName("tr");
 
+        for (var i = 1; i < tr.length; i++) {
+          var showRow = false;
+          var td = tr[i].getElementsByTagName("td");
+          
+          for (var j = 0; j < td.length; j++) {
+            if (td[j]) {
+              var textValue = td[j].textContent || td[j].innerText;
+              if (textValue.toLowerCase().indexOf(filter) > -1) {
+                showRow = true;
+                break;
+              }
+            }
+          }
+          
+          if (showRow) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+   </script>
+    
 </body>
 </html>
 
