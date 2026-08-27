@@ -1,8 +1,7 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My First Website</title>
     <style>
       body {
@@ -28,9 +27,26 @@
         margin-bottom: 20px;
       }
 
+      /* Search Bar Styling */
+      .search-box {
+        width: 80%;
+        max-width: 400px;
+        padding: 10px 15px;
+        font-size: 16px;
+        border: 2px solid #007bff;
+        border-radius: 5px;
+        background-color: #1a1a1a;
+        color: #ffffff;
+        outline: none;
+        margin-bottom: 20px;
+      }
+
+      .search-box:focus {
+        border-color: #87ceeb;
+      }
+
       table {
         width: 100%;
-        max-width: 800px;
         margin: 10px auto;
         border-collapse: collapse;
         background-color: #1a1a1a;
@@ -65,19 +81,20 @@
 </head>
 <body>
 
-    <h2>Hi!</h2>
+    <h2>hi</h2>
     <h1>Welcome! This is my first website.</h1>
-    <h3>Friends Details</h3>
+    <h3>WE MAKE A TABLE FRIENDS DETAILS</h3>
 
-    <a href="https://www.google.com" target="_blank">Go to Google</a>
+    <a href="https://www.google.com">Go to Google</a><br>
 
-    <input type="text" id="searchInput" class="search-box" onkeyup="searchTable()" placeholder="Search names, phone numbers, addresses...">I'm
-    <tableid="friendsTable">
+    <input type="text" id="searchInput" class="search-box" onkeyup="searchTable()" placeholder="Search names, phone numbers, addresses...">
+
+    <table id="friendsTable">
       <thead>
         <tr>
           <th>Name</th>
-          <th>Phone Number</th>
-          <th>Address</th>
+          <th>Phonenumber</th>
+          <th>adress</th>
         </tr>
       </thead>
       <tbody>
@@ -114,50 +131,25 @@
         <tr>
           <td><img src="harry.jpeg" alt="profile">HARRY</td>
           <td>+92 318 7366834</td>
-          <td>CHRISTIAN TOWN</td>
-        </tr> 
+          <td>CRISTIAN TOWN</td>
+        </tr>
           <tr>
-          <td><img src="bajwa.jpeg" alt="profile">AHMADBAJWA</td>
+          <td><img src="bajwa.jpeg" alt="profile">AHMAD BAJWA</td>
           <td>+92 340 9377122</td>
           <td>AZEEM TOWN</td>
-        </tr> 
+          </tr>
           <tr>
           <td><img src="ahmad.jpeg" alt="profile">AHMAD</td>
-          <td>+92 329 0887127</td>
+          <td>++92 329 0887127</td>
           <td>AZEEM TOWN</td>
-        </tr> 
+          </tr>
+          
       </tbody>
     </table>
-   <script>
-      function searchTable() {
-        var input = document.getElementById("searchInput");
-        var filter = input.value.toLowerCase();
-        var table = document.getElementById("friendsTable");
-        var tr = table.getElementsByTagName("tr");
 
-        for (var i = 1; i < tr.length; i++) {
-          var showRow = false;
-          var td = tr[i].getElementsByTagName("td");
-          
-          for (var j = 0; j < td.length; j++) {
-            if (td[j]) {
-              var textValue = td[j].textContent || td[j].innerText;
-              if (textValue.toLowerCase().indexOf(filter) > -1) {
-                showRow = true;
-                break;
-              }
-            }
-          }
-          
-          if (showRow) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }
-      }
-   </script>
-    
+  
+
 </body>
 </html>
+
 
