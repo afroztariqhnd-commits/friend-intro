@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -133,23 +133,49 @@
           <td>+92 318 7366834</td>
           <td>CRISTIAN TOWN</td>
         </tr>
-          <tr>
+        <tr>
           <td><img src="bajwa.jpeg" alt="profile">AHMAD BAJWA</td>
           <td>+92 340 9377122</td>
           <td>AZEEM TOWN</td>
-          </tr>
-          <tr>
+        </tr>
+        <tr>
           <td><img src="ahmad.jpeg" alt="profile">AHMAD</td>
-          <td>++92 329 0887127</td>
+          <td>+92 329 0887127</td>
           <td>AZEEM TOWN</td>
-          </tr>
-          
+        </tr>
       </tbody>
     </table>
 
-  
+    <script>
+      function searchTable() {
+        var input = document.getElementById("searchInput");
+        var filter = input.value.toLowerCase();
+        var table = document.getElementById("friendsTable");
+        var tr = table.getElementsByTagName("tr");
+
+        for (var i = 1; i < tr.length; i++) {
+          var showRow = false;
+          var td = tr[i].getElementsByTagName("td");
+          
+          for (var j = 0; j < td.length; j++) {
+            if (td[j]) {
+              var textValue = td[j].textContent || td[j].innerText;
+              if (textValue.toLowerCase().indexOf(filter) > -1) {
+                showRow = true;
+                break;
+              }
+            }
+          }
+          
+          if (showRow) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    </script>
 
 </body>
-</html>
-
-
+               </html>
+               
