@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My First Website</title>
     <style>
       body {
@@ -14,17 +16,24 @@
 
       h1 {
         color: #ffffff;
+        margin-top: 10px;
       }
 
       h3 {
         color: #87ceeb;
         font-weight: bold;
+        letter-spacing: 1px;
       }
 
       a {
         color: #ffc107;
         display: inline-block;
         margin-bottom: 20px;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
       }
 
       /* Search Bar Styling */
@@ -47,14 +56,15 @@
 
       table {
         width: 100%;
-        margin: 10px auto;
+        max-width: 900px;
+        margin: 10px auto 30px auto;
         border-collapse: collapse;
         background-color: #1a1a1a;
       }
 
       th, td {
         border: 2px solid #007bff;
-        padding: 10px;
+        padding: 12px;
         text-align: center;
       }
 
@@ -77,15 +87,106 @@
         margin-right: 8px;
         object-fit: cover;
       }
+
+      /* Toggle Links Section */
+      .links-container {
+        margin: 20px 0;
+      }
+
+      .action-link {
+        color: #ffc107;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 0 15px;
+        text-decoration: underline;
+        display: inline-block;
+      }
+
+      .action-link:hover {
+        color: #87ceeb;
+      }
+
+      /* Forms Styling (Initially Hidden) */
+      .form-card {
+        display: none; /* Initially hidden */
+        max-width: 450px;
+        margin: 20px auto;
+        background-color: #1a1a1a;
+        border: 2px solid #007bff;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: left;
+      }
+
+      .form-card h3 {
+        margin-top: 0;
+        text-align: center;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #87ceeb;
+        font-weight: bold;
+      }
+
+      .form-group input, 
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #007bff;
+        border-radius: 4px;
+        background-color: #000000;
+        color: #ffffff;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+
+      .form-group input:focus, 
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #87ceeb;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .submit-btn:hover {
+        background-color: #0056b3;
+      }
+
+      .status-msg {
+        margin-top: 15px;
+        text-align: center;
+        font-weight: bold;
+        display: none;
+        color: #28a745;
+      }
     </style>
 </head>
 <body>
 
-    <h2>hi</h2>
     <h1>Welcome! This is my first website.</h1>
-    <h3>WE MAKE A TABLE FRIENDS DETAILS</h3>
+    <h3>FRIENDS DIRECTORY</h3>
 
-    <a href="https://www.google.com">Go to Google</a><br>
+    <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Go to Google</a><br>
 
     <input type="text" id="searchInput" class="search-box" onkeyup="searchTable()" placeholder="Search names, phone numbers, addresses...">
 
@@ -93,89 +194,156 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Phonenumber</th>
-          <th>adress</th>
+          <th>Phone Number</th>
+          <th>Address</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><img src="afroz.jpeg" alt="profile">AFROZ</td>
-          <td>+923214429073</td>
-          <td>MOHALLAH RASOOL NAGER</td>
+          <td><img src="afroz.jpeg" alt="Profile of Afroz">Afroz</td>
+          <td>+92 321 4429073</td>
+          <td>Mohallah Rasool Nager</td>
         </tr>
         <tr>
-          <td><img src="koda.jpeg" alt="profile">Luqman♥️</td>
-          <td>+923330638966</td>
-          <td>LAHORI BAZAIR</td>
+          <td><img src="koda.jpeg" alt="Profile of Luqman">Luqman ♥️</td>
+          <td>+92 333 0638966</td>
+          <td>Lahori Bazair</td>
         </tr>
         <tr>
-          <td><img src="hamza.jpeg" alt="profile">Hamza</td>
-          <td>+923271692102</td>
-          <td>MAHRIA TOWN</td>
+          <td><img src="hamza.jpeg" alt="Profile of Hamza">Hamza</td>
+          <td>+92 327 1692102</td>
+          <td>Mahria Town</td>
         </tr>
         <tr>
-          <td><img src="isma.jpeg" alt="profile">ISMAIL♥️</td>
-          <td>+923005590340</td>
-          <td>AZEEM TOWN</td>
+          <td><img src="isma.jpeg" alt="Profile of Ismail">Ismail ♥️</td>
+          <td>+92 300 5590340</td>
+          <td>Azeem Town</td>
         </tr>
         <tr>
-          <td><img src="tfrt.jpeg" alt="profile">ABUBAKER♥️</td>
-          <td>+923217047036</td>
-          <td>MOHALLAH RASOOL NAGER</td>
+          <td><img src="tfrt.jpeg" alt="Profile of Abubaker">Abubaker ♥️</td>
+          <td>+92 321 7047036</td>
+          <td>Mohallah Rasool Nager</td>
         </tr>
         <tr>
-          <td><img src="ayan.jpeg" alt="profile">ALIAYAN</td>
-          <td>+923032002840</td>
-          <td>MOHALLAH RASOOL NAGER</td>
+          <td><img src="ayan.jpeg" alt="Profile of Aliayan">Aliayan</td>
+          <td>+92 303 2002840</td>
+          <td>Mohallah Rasool Nager</td>
         </tr>
         <tr>
-          <td><img src="harry.jpeg" alt="profile">HARRY</td>
+          <td><img src="harry.jpeg" alt="Profile of Harry">Harry</td>
           <td>+92 318 7366834</td>
-          <td>CRISTIAN TOWN</td>
+          <td>Cristian Town</td>
         </tr>
         <tr>
-          <td><img src="bajwa.jpeg" alt="profile">AHMAD BAJWA</td>
+          <td><img src="bajwa.jpeg" alt="Profile of Ahmad Bajwa">Ahmad Bajwa</td>
           <td>+92 340 9377122</td>
-          <td>AZEEM TOWN</td>
+          <td>Azeem Town</td>
         </tr>
         <tr>
-          <td><img src="ahmad.jpeg" alt="profile">AHMAD</td>
+          <td><img src="ahmad.jpeg" alt="Profile of Ahmad">Ahmad</td>
           <td>+92 329 0887127</td>
-          <td>AZEEM TOWN</td>
+          <td>Azeem Town</td>
         </tr>
       </tbody>
     </table>
 
-    <script>
-      function searchTable() {
-        var input = document.getElementById("searchInput");
-        var filter = input.value.toLowerCase();
-        var table = document.getElementById("friendsTable");
-        var tr = table.getElementsByTagName("tr");
+    <div class="links-container">
+      <span class="action-link" onclick="toggleForm('complainCard')">Click to open Complaint</span> | 
+      <span class="action-link" onclick="toggleForm('feedbackCard')">Click to open Feedback</span>
+    </div>
 
-        for (var i = 1; i < tr.length; i++) {
-          var showRow = false;
-          var td = tr[i].getElementsByTagName("td");
-          
-          for (var j = 0; j < td.length; j++) {
-            if (td[j]) {
-              var textValue = td[j].textContent || td[j].innerText;
-              if (textValue.toLowerCase().indexOf(filter) > -1) {
-                showRow = true;
-                break;
-              }
-            }
-          }
-          
-          if (showRow) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
+    <div id="complainCard" class="form-card">
+      <h3>Submit a Complaint</h3>
+      <form id="complainForm" onsubmit="handleComplainSubmit(event)">
+        <div class="form-group">
+          <label for="complainName">Your Name</label>
+          <input type="text" id="complainName" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+          <label for="complainEmail">Your Email</label>
+          <input type="email" id="complainEmail" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="complainText">Complaint Details</label>
+          <textarea id="complainText" rows="4" placeholder="Describe your issue..." required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Submit Complaint</button>
+      </form>
+      <div id="complainStatus" class="status-msg"></div>
+    </div>
+
+    <div id="feedbackCard" class="form-card">
+      <h3>Leave Feedback</h3>
+      <form id="feedbackForm" onsubmit="handleFeedbackSubmit(event)">
+        <div class="form-group">
+          <label for="feedbackName">Your Name</label>
+          <input type="text" id="feedbackName" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+          <label for="feedbackRating">Rating</label>
+          <select id="feedbackRating" required>
+            <option value="5">⭐⭐⭐⭐⭐ (5 - Excellent)</option>
+            <option value="4">⭐⭐⭐⭐ (4 - Very Good)</option>
+            <option value="3">⭐⭐⭐ (3 - Good)</option>
+            <option value="2">⭐⭐ (2 - Fair)</option>
+            <option value="1">⭐ (1 - Poor)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="feedbackText">Your Review</label>
+          <textarea id="feedbackText" rows="4" placeholder="Write your thoughts..." required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Submit Feedback</button>
+      </form>
+      <div id="feedbackStatus" class="status-msg"></div>
+    </div>
+
+    <script>
+      // Search Functionality
+      function searchTable() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toLowerCase();
+        const table = document.getElementById("friendsTable");
+        const trs = table.querySelectorAll("tbody tr");
+
+        trs.forEach(tr => {
+          const textContent = tr.textContent.toLowerCase();
+          tr.style.display = textContent.includes(filter) ? "" : "none";
+        });
+      }
+
+      // Show/Hide Forms Logic
+      function toggleForm(formId) {
+        const complainBox = document.getElementById("complainCard");
+        const feedbackBox = document.getElementById("feedbackCard");
+
+        if (formId === 'complainCard') {
+          complainBox.style.display = (complainBox.style.display === "block") ? "none" : "block";
+          feedbackBox.style.display = "none";
+        } else if (formId === 'feedbackCard') {
+          feedbackBox.style.display = (feedbackBox.style.display === "block") ? "none" : "block";
+          complainBox.style.display = "none";
         }
+      }
+
+      // Complaint Form Submission
+      function handleComplainSubmit(event) {
+        event.preventDefault();
+        const msg = document.getElementById("complainStatus");
+        msg.style.display = "block";
+        msg.innerText = "Your complaint has been submitted successfully.";
+        document.getElementById("complainForm").reset();
+      }
+
+      // Feedback Form Submission
+      function handleFeedbackSubmit(event) {
+        event.preventDefault();
+        const msg = document.getElementById("feedbackStatus");
+        msg.style.display = "block";
+        msg.innerText = "Thank you for your feedback!";
+        document.getElementById("feedbackForm").reset();
       }
     </script>
 
 </body>
-               </html>
-               
+</html>
