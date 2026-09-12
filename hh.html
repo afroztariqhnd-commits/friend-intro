@@ -4,263 +4,433 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>My First Website</title>
+<title>Friends Directory</title>
 
 <style>
-    body {
-        background-color: black;
-        color: white;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 0;
-        padding: 20px;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    h1 {
-        margin-bottom: 10px;
-    }
+body {
+    margin: 0;
+    background: #000;
+    color: white;
+    font-family: Arial, sans-serif;
+}
 
-    h3 {
-        color: #00ff88;
-        font-size: 25px;
-    }
+/* ================= LOGIN PAGE ================= */
 
-    a {
-        color: #00aaff;
-    }
+#loginPage {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
 
-    #searchBox {
-        width: 90%;
-        max-width: 500px;
-        padding: 12px;
-        margin: 20px auto;
-        border-radius: 8px;
-        border: 1px solid white;
-        font-size: 16px;
-        display: block;
-    }
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 18px;
+    padding: 30px 22px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(255,255,255,0.08);
+}
 
-    button {
-        padding: 12px 20px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 16px;
-        margin: 5px;
-    }
+.login-box h1 {
+    margin-bottom: 8px;
+}
 
-    #addBtn {
-        background-color: #00cc66;
-        color: white;
-        font-weight: bold;
-    }
+.login-box p {
+    color: #aaa;
+    margin-bottom: 25px;
+}
 
-    #saveBtn {
-        background-color: #008cff;
-        color: white;
-    }
+.google-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: white;
+    color: #222;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-    #cancelBtn {
-        background-color: #555;
-        color: white;
-    }
+.google-btn:hover {
+    background: #eee;
+}
 
-    #addForm {
-        display: none;
-        width: 90%;
-        max-width: 500px;
-        margin: 20px auto;
-        padding: 20px;
-        border: 1px solid #444;
-        border-radius: 12px;
-        background-color: #111;
-        box-sizing: border-box;
-    }
+.google-icon {
+    margin-right: 8px;
+    font-size: 18px;
+}
 
-    #addForm h2 {
-        color: #00ff88;
-    }
+/* ================= WEBSITE ================= */
 
-    #addForm input {
-        width: 100%;
-        padding: 12px;
-        margin: 8px 0;
-        border-radius: 7px;
-        border: 1px solid #555;
-        box-sizing: border-box;
-        font-size: 16px;
-    }
+#websitePage {
+    display: none;
+    padding: 20px;
+}
 
-    #photoPreview {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        object-fit: cover;
-        display: none;
-        margin: 10px auto;
-        border: 2px solid #00ff88;
-    }
+.header {
+    text-align: center;
+}
 
-    .table-container {
-        width: 100%;
-        overflow-x: auto;
-        margin-top: 20px;
-    }
+.header h1 {
+    margin-bottom: 8px;
+}
 
-    table {
-        width: 100%;
-        min-width: 700px;
-        border-collapse: collapse;
-    }
+.header h3 {
+    color: #00ff88;
+    font-size: 25px;
+}
 
-    th, td {
-        border: 1px solid white;
+.logout-btn {
+    background: #e60000;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* SEARCH */
+
+#searchBox {
+    display: block;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    font-size: 16px;
+}
+
+/* ADD BUTTON */
+
+#addBtn {
+    display: block;
+    margin: 15px auto;
+    padding: 12px 22px;
+    background: #00cc66;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ADD FORM */
+
+#addForm {
+    display: none;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #111;
+    border: 1px solid #444;
+    border-radius: 12px;
+}
+
+#addForm h2 {
+    text-align: center;
+    color: #00ff88;
+}
+
+#addForm input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 7px;
+    border: 1px solid #555;
+    font-size: 16px;
+}
+
+#photoPreview {
+    display: none;
+    width: 90px;
+    height: 90px;
+    margin: 10px auto;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #00ff88;
+}
+
+#saveBtn {
+    background: #008cff;
+    color: white;
+}
+
+#cancelBtn {
+    background: #555;
+    color: white;
+}
+
+.form-buttons {
+    text-align: center;
+}
+
+.form-buttons button {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+/* TABLE */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    min-width: 750px;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid white;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #222;
+    color: #00ff88;
+}
+
+tr:nth-child(even) {
+    background: #111;
+}
+
+.profile-img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.delete-btn {
+    background: #e60000;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    #websitePage {
         padding: 10px;
-        text-align: center;
     }
 
-    th {
-        background-color: #222;
-        color: #00ff88;
+    .header h1 {
+        font-size: 24px;
     }
 
-    tr:nth-child(even) {
-        background-color: #111;
+    .header h3 {
+        font-size: 21px;
     }
 
-    .profile-img {
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-    .delete-btn {
-        background-color: #e60000;
-        color: white;
-        padding: 8px 12px;
-        font-size: 14px;
-    }
-
-    @media (max-width: 600px) {
-        body {
-            padding: 10px;
-        }
-
-        h1 {
-            font-size: 25px;
-        }
-
-        h3 {
-            font-size: 21px;
-        }
-
-        th, td {
-            padding: 8px;
-        }
-    }
+}
 </style>
 </head>
 
 <body>
 
-<h1>Welcome! This is my first website.</h1>
 
-<h3>FRIENDS DIRECTORY</h3>
+<!-- ================================================= -->
+<!-- LOGIN PAGE -->
+<!-- ================================================= -->
 
-<p>
-    <a href="https://www.google.com" target="_blank">
-        Visit Google
-    </a>
-</p>
+<div id="loginPage">
 
-<!-- SEARCH -->
-<input
-    type="text"
-    id="searchBox"
-    placeholder="Search friend..."
-    onkeyup="searchTable()"
->
+    <div class="login-box">
 
-<!-- ADD BUTTON -->
-<button id="addBtn" onclick="showForm()">
-    ➕ Add New
-</button>
+        <h1>🔐 Welcome</h1>
 
-<!-- ADD FORM -->
-<div id="addForm">
+        <p>
+            Sign in to open Friends Directory
+        </p>
 
-    <h2>Add New Friend</h2>
+        <button
+            class="google-btn"
+            onclick="googleLogin()"
+        >
+            <span class="google-icon">G</span>
+            Continue with Google
+        </button>
 
-    <!-- PHOTO -->
-    <input
-        type="file"
-        id="photoInput"
-        accept="image/*"
-        onchange="previewPhoto(event)"
-    >
-
-    <img id="photoPreview">
-
-    <!-- NAME -->
-    <input
-        type="text"
-        id="nameInput"
-        placeholder="Enter Name"
-    >
-
-    <!-- PHONE -->
-    <input
-        type="tel"
-        id="phoneInput"
-        placeholder="Enter Phone Number"
-    >
-
-    <!-- ADDRESS -->
-    <input
-        type="text"
-        id="addressInput"
-        placeholder="Enter Address"
-    >
-
-    <br>
-
-    <button id="saveBtn" onclick="addFriend()">
-        💾 Save
-    </button>
-
-    <button id="cancelBtn" onclick="hideForm()">
-        ❌ Cancel
-    </button>
+    </div>
 
 </div>
 
-<!-- TABLE -->
-<div class="table-container">
 
-<table id="friendsTable">
+<!-- ================================================= -->
+<!-- FRIENDS WEBSITE -->
+<!-- ================================================= -->
 
-    <thead>
-        <tr>
-            <th>Photo</th>
-            <th>Name</th>
-            <th>Phone Number</th>
-            <th>Address</th>
-            <th>Action</th>
-        </tr>
-    </thead>
+<div id="websitePage">
 
-    <tbody id="tableBody">
-    </tbody>
+    <div class="header">
 
-</table>
+        <h1>
+            Welcome! This is my first website.
+        </h1>
+
+        <h3>
+            FRIENDS DIRECTORY
+        </h3>
+
+        <button
+            class="logout-btn"
+            onclick="logout()"
+        >
+            Logout
+        </button>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <input
+        type="text"
+        id="searchBox"
+        placeholder="🔍 Search friend..."
+        onkeyup="searchTable()"
+    >
+
+
+    <!-- ADD NEW -->
+
+    <button
+        id="addBtn"
+        onclick="showForm()"
+    >
+        ➕ Add New
+    </button>
+
+
+    <!-- ADD FORM -->
+
+    <div id="addForm">
+
+        <h2>
+            Add New Friend
+        </h2>
+
+
+        <!-- PHOTO -->
+
+        <input
+            type="file"
+            id="photoInput"
+            accept="image/*"
+            onchange="previewPhoto(event)"
+        >
+
+        <img
+            id="photoPreview"
+            alt="Photo Preview"
+        >
+
+
+        <!-- NAME -->
+
+        <input
+            type="text"
+            id="nameInput"
+            placeholder="Enter Name"
+        >
+
+
+        <!-- PHONE -->
+
+        <input
+            type="tel"
+            id="phoneInput"
+            placeholder="Enter Phone Number"
+        >
+
+
+        <!-- ADDRESS -->
+
+        <input
+            type="text"
+            id="addressInput"
+            placeholder="Enter Address"
+        >
+
+
+        <div class="form-buttons">
+
+            <button
+                id="saveBtn"
+                onclick="addFriend()"
+            >
+                💾 Save
+            </button>
+
+            <button
+                id="cancelBtn"
+                onclick="hideForm()"
+            >
+                ❌ Cancel
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- TABLE -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Photo</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="tableBody"></tbody>
+
+        </table>
+
+    </div>
 
 </div>
 
 
 <script>
 
+/* ================================================= */
 /* DEFAULT FRIENDS */
+/* ================================================= */
 
 const defaultFriends = [
 
@@ -330,59 +500,161 @@ const defaultFriends = [
 ];
 
 
-/* LOAD DATA */
+/* ================================================= */
+/* FRIEND DATA */
+/* ================================================= */
 
-let friends = JSON.parse(localStorage.getItem("friends"));
+let friends =
+    JSON.parse(localStorage.getItem("friends"));
 
 if (!friends) {
+
     friends = defaultFriends;
-    localStorage.setItem("friends", JSON.stringify(friends));
+
+    localStorage.setItem(
+        "friends",
+        JSON.stringify(friends)
+    );
+
 }
 
 
-/* SHOW FORM */
+/* ================================================= */
+/* GOOGLE LOGIN PAGE */
+/* ================================================= */
+
+function googleLogin() {
+
+    /*
+       IMPORTANT:
+
+       یہ ابھی demo login ہے۔
+
+       اصل Google Login کے لیے
+       Firebase Authentication یا
+       Google OAuth credentials لگانے ہوں گے۔
+    */
+
+    localStorage.setItem(
+        "googleLoggedIn",
+        "true"
+    );
+
+    openWebsite();
+
+}
+
+
+/* ================================================= */
+/* OPEN WEBSITE */
+/* ================================================= */
+
+function openWebsite() {
+
+    document.getElementById(
+        "loginPage"
+    ).style.display = "none";
+
+    document.getElementById(
+        "websitePage"
+    ).style.display = "block";
+
+    renderTable();
+
+}
+
+
+/* ================================================= */
+/* LOGOUT */
+/* ================================================= */
+
+function logout() {
+
+    localStorage.removeItem(
+        "googleLoggedIn"
+    );
+
+    document.getElementById(
+        "websitePage"
+    ).style.display = "none";
+
+    document.getElementById(
+        "loginPage"
+    ).style.display = "flex";
+
+}
+
+
+/* ================================================= */
+/* ADD FORM */
+/* ================================================= */
 
 function showForm() {
 
-    document.getElementById("addForm").style.display = "block";
+    document.getElementById(
+        "addForm"
+    ).style.display = "block";
 
 }
 
-
-/* HIDE FORM */
 
 function hideForm() {
 
-    document.getElementById("addForm").style.display = "none";
+    document.getElementById(
+        "addForm"
+    ).style.display = "none";
 
-    document.getElementById("nameInput").value = "";
-    document.getElementById("phoneInput").value = "";
-    document.getElementById("addressInput").value = "";
-    document.getElementById("photoInput").value = "";
+    document.getElementById(
+        "nameInput"
+    ).value = "";
 
-    document.getElementById("photoPreview").style.display = "none";
+    document.getElementById(
+        "phoneInput"
+    ).value = "";
+
+    document.getElementById(
+        "addressInput"
+    ).value = "";
+
+    document.getElementById(
+        "photoInput"
+    ).value = "";
+
+    document.getElementById(
+        "photoPreview"
+    ).style.display = "none";
 
 }
 
 
+/* ================================================= */
 /* PHOTO PREVIEW */
+/* ================================================= */
 
 function previewPhoto(event) {
 
-    const file = event.target.files[0];
+    const file =
+        event.target.files[0];
 
     if (!file) {
         return;
     }
 
-    const reader = new FileReader();
+    const reader =
+        new FileReader();
 
     reader.onload = function(e) {
 
-        const preview = document.getElementById("photoPreview");
+        const preview =
+            document.getElementById(
+                "photoPreview"
+            );
 
-        preview.src = e.target.result;
-        preview.style.display = "block";
+        preview.src =
+            e.target.result;
+
+        preview.style.display =
+            "block";
 
     };
 
@@ -391,52 +663,78 @@ function previewPhoto(event) {
 }
 
 
+/* ================================================= */
 /* ADD FRIEND */
+/* ================================================= */
 
 function addFriend() {
 
     const name =
-        document.getElementById("nameInput").value.trim();
+        document
+        .getElementById("nameInput")
+        .value
+        .trim();
 
     const phone =
-        document.getElementById("phoneInput").value.trim();
+        document
+        .getElementById("phoneInput")
+        .value
+        .trim();
 
     const address =
-        document.getElementById("addressInput").value.trim();
+        document
+        .getElementById("addressInput")
+        .value
+        .trim();
 
     const photoInput =
-        document.getElementById("photoInput");
+        document.getElementById(
+            "photoInput"
+        );
 
-    if (name === "" || phone === "" || address === "") {
 
-        alert("Please enter Name, Phone Number and Address.");
+    if (
+        name === "" ||
+        phone === "" ||
+        address === ""
+    ) {
+
+        alert(
+            "Please enter Name, Phone Number and Address."
+        );
 
         return;
+
     }
 
 
-    /* PHOTO */
+    if (
+        photoInput.files.length > 0
+    ) {
 
-    if (photoInput.files.length > 0) {
+        const file =
+            photoInput.files[0];
 
-        const file = photoInput.files[0];
+        const reader =
+            new FileReader();
 
-        const reader = new FileReader();
+        reader.onload =
+            function(e) {
 
-        reader.onload = function(e) {
+                saveFriend(
+                    name,
+                    phone,
+                    address,
+                    e.target.result
+                );
 
-            saveFriend(
-                name,
-                phone,
-                address,
-                e.target.result
-            );
-
-        };
+            };
 
         reader.readAsDataURL(file);
 
-    } else {
+    }
+
+    else {
 
         saveFriend(
             name,
@@ -450,89 +748,127 @@ function addFriend() {
 }
 
 
+/* ================================================= */
 /* SAVE FRIEND */
+/* ================================================= */
 
-function saveFriend(name, phone, address, photo) {
+function saveFriend(
+    name,
+    phone,
+    address,
+    photo
+) {
 
-    const newFriend = {
+    friends.push({
 
         name: name,
         phone: phone,
         address: address,
         photo: photo
 
-    };
+    });
 
-    friends.push(newFriend);
 
     localStorage.setItem(
         "friends",
         JSON.stringify(friends)
     );
 
+
     renderTable();
 
     hideForm();
 
-    alert("Friend added successfully! ✅");
+    alert(
+        "Friend added successfully! ✅"
+    );
 
 }
 
 
+/* ================================================= */
 /* DISPLAY TABLE */
+/* ================================================= */
 
 function renderTable() {
 
     const tableBody =
-        document.getElementById("tableBody");
+        document.getElementById(
+            "tableBody"
+        );
 
     tableBody.innerHTML = "";
 
-    friends.forEach(function(friend, index) {
 
-        const row =
-            document.createElement("tr");
+    friends.forEach(
+        function(friend, index) {
 
-        row.innerHTML = `
+            const row =
+                document.createElement(
+                    "tr"
+                );
 
-            <td>
-                ${
-                    friend.photo
-                    ?
-                    `<img
-                        src="${friend.photo}"
-                        class="profile-img"
-                    >`
-                    :
-                    "👤"
-                }
-            </td>
 
-            <td>${escapeHTML(friend.name)}</td>
+            row.innerHTML = `
 
-            <td>${escapeHTML(friend.phone)}</td>
+                <td>
 
-            <td>${escapeHTML(friend.address)}</td>
+                    ${
+                        friend.photo
+                        ?
+                        `
+                        <img
+                            src="${friend.photo}"
+                            class="profile-img"
+                        >
+                        `
+                        :
+                        "👤"
+                    }
 
-            <td>
-                <button
-                    class="delete-btn"
-                    onclick="deleteFriend(${index})"
-                >
-                    🗑️ Delete
-                </button>
-            </td>
+                </td>
 
-        `;
 
-        tableBody.appendChild(row);
+                <td>
+                    ${escapeHTML(friend.name)}
+                </td>
 
-    });
+
+                <td>
+                    ${escapeHTML(friend.phone)}
+                </td>
+
+
+                <td>
+                    ${escapeHTML(friend.address)}
+                </td>
+
+
+                <td>
+
+                    <button
+                        class="delete-btn"
+                        onclick="deleteFriend(${index})"
+                    >
+                        🗑️ Delete
+                    </button>
+
+                </td>
+
+            `;
+
+
+            tableBody.appendChild(row);
+
+        }
+    );
 
 }
 
 
-/* DELETE */
+/* ================================================= */
+/* DELETE FRIEND */
+/* ================================================= */
 
 function deleteFriend(index) {
 
@@ -542,12 +878,17 @@ function deleteFriend(index) {
         )
     ) {
 
-        friends.splice(index, 1);
+        friends.splice(
+            index,
+            1
+        );
+
 
         localStorage.setItem(
             "friends",
             JSON.stringify(friends)
         );
+
 
         renderTable();
 
@@ -556,7 +897,9 @@ function deleteFriend(index) {
 }
 
 
+/* ================================================= */
 /* SEARCH */
+/* ================================================= */
 
 function searchTable() {
 
@@ -566,10 +909,12 @@ function searchTable() {
         .value
         .toLowerCase();
 
+
     const rows =
         document
         .getElementById("tableBody")
         .getElementsByTagName("tr");
+
 
     for (
         let i = 0;
@@ -582,13 +927,20 @@ function searchTable() {
             .innerText
             .toLowerCase();
 
-        if (text.includes(search)) {
 
-            rows[i].style.display = "";
+        if (
+            text.includes(search)
+        ) {
 
-        } else {
+            rows[i].style.display =
+                "";
 
-            rows[i].style.display = "none";
+        }
+
+        else {
+
+            rows[i].style.display =
+                "none";
 
         }
 
@@ -597,7 +949,9 @@ function searchTable() {
 }
 
 
+/* ================================================= */
 /* SECURITY */
+/* ================================================= */
 
 function escapeHTML(text) {
 
@@ -611,11 +965,39 @@ function escapeHTML(text) {
 }
 
 
-/* START */
+/* ================================================= */
+/* CHECK LOGIN */
+/* ================================================= */
 
-renderTable();
+window.onload = function() {
+
+    const loggedIn =
+        localStorage.getItem(
+            "googleLoggedIn"
+        );
+
+
+    if (loggedIn === "true") {
+
+        openWebsite();
+
+    }
+
+    else {
+
+        document.getElementById(
+            "loginPage"
+        ).style.display = "flex";
+
+        document.getElementById(
+            "websitePage"
+        ).style.display = "none";
+
+    }
+
+};
 
 </script>
 
 </body>
-</html>
+    </html>
