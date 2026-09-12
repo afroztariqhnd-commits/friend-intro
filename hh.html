@@ -18,7 +18,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* LOGIN PAGE */
+/* ================= LOGIN PAGE ================= */
 
 #loginPage {
     min-height: 100vh;
@@ -36,10 +36,11 @@ body {
     border-radius: 18px;
     padding: 35px 25px;
     text-align: center;
+    box-shadow: 0 0 25px rgba(255,255,255,0.08);
 }
 
 .login-box h1 {
-    margin-bottom: 10px;
+    margin: 0 0 10px;
 }
 
 .login-box p {
@@ -47,9 +48,12 @@ body {
     margin-bottom: 25px;
 }
 
+/* GOOGLE BUTTON */
+
 .google-btn {
     width: 100%;
     padding: 14px;
+    margin: 8px 0;
     border: none;
     border-radius: 8px;
     background: white;
@@ -68,7 +72,13 @@ body {
     margin-right: 8px;
 }
 
-/* WEBSITE */
+.login-note {
+    color: #777;
+    font-size: 12px;
+    margin-top: 18px;
+}
+
+/* ================= WEBSITE ================= */
 
 #websitePage {
     display: none;
@@ -79,10 +89,32 @@ body {
     text-align: center;
 }
 
+.header h1 {
+    margin-bottom: 8px;
+}
+
 .header h3 {
     color: #00ff88;
     font-size: 25px;
 }
+
+/* USER */
+
+#userInfo {
+    margin: 15px;
+    color: #aaa;
+}
+
+#userPhoto {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+/* LOGOUT */
 
 .logout-btn {
     background: #e60000;
@@ -106,7 +138,7 @@ body {
     font-size: 16px;
 }
 
-/* ADD */
+/* ADD BUTTON */
 
 #addBtn {
     display: block;
@@ -121,7 +153,7 @@ body {
     cursor: pointer;
 }
 
-/* FORM */
+/* ADD FORM */
 
 #addForm {
     display: none;
@@ -226,22 +258,6 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
-/* USER */
-
-#userInfo {
-    text-align: center;
-    margin: 10px;
-    color: #aaa;
-}
-
-#userPhoto {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    vertical-align: middle;
-    margin-right: 8px;
-}
-
 /* MOBILE */
 
 @media (max-width: 600px) {
@@ -265,26 +281,45 @@ tr:nth-child(even) {
 
 
 <!-- ================================================= -->
-<!-- REAL GOOGLE LOGIN PAGE -->
+<!-- LOGIN / SIGN-IN PAGE -->
 <!-- ================================================= -->
 
 <div id="loginPage">
 
     <div class="login-box">
 
-        <h1>🔐 Welcome</h1>
+        <h1>🔐 Friends Directory</h1>
 
         <p>
-            Sign in to open Friends Directory
+            Login or Sign in with your Google account
         </p>
+
+
+        <!-- LOGIN -->
 
         <button
             class="google-btn"
-            id="googleLoginBtn"
+            id="loginGoogleBtn"
         >
             <span class="google-icon">G</span>
-            Continue with Google
+            Login with Google
         </button>
+
+
+        <!-- SIGN IN -->
+
+        <button
+            class="google-btn"
+            id="signInGoogleBtn"
+        >
+            <span class="google-icon">G</span>
+            Sign in with Google
+        </button>
+
+
+        <div class="login-note">
+            Secure authentication by Google
+        </div>
 
     </div>
 
@@ -307,7 +342,9 @@ tr:nth-child(even) {
             FRIENDS DIRECTORY
         </h3>
 
+
         <div id="userInfo"></div>
+
 
         <button
             class="logout-btn"
@@ -339,7 +376,12 @@ tr:nth-child(even) {
 
     <div id="addForm">
 
-        <h2>Add New Friend</h2>
+        <h2>
+            Add New Friend
+        </h2>
+
+
+        <!-- PHOTO -->
 
         <input
             type="file"
@@ -347,10 +389,14 @@ tr:nth-child(even) {
             accept="image/*"
         >
 
+
         <img
             id="photoPreview"
             alt="Photo Preview"
         >
+
+
+        <!-- NAME -->
 
         <input
             type="text"
@@ -358,11 +404,17 @@ tr:nth-child(even) {
             placeholder="Enter Name"
         >
 
+
+        <!-- PHONE -->
+
         <input
             type="tel"
             id="phoneInput"
             placeholder="Enter Phone Number"
         >
+
+
+        <!-- ADDRESS -->
 
         <input
             type="text"
@@ -370,11 +422,13 @@ tr:nth-child(even) {
             placeholder="Enter Address"
         >
 
+
         <div class="form-buttons">
 
             <button id="saveBtn">
                 💾 Save
             </button>
+
 
             <button id="cancelBtn">
                 ❌ Cancel
@@ -394,14 +448,21 @@ tr:nth-child(even) {
             <thead>
 
                 <tr>
+
                     <th>Photo</th>
+
                     <th>Name</th>
+
                     <th>Phone Number</th>
+
                     <th>Address</th>
+
                     <th>Action</th>
+
                 </tr>
 
             </thead>
+
 
             <tbody id="tableBody"></tbody>
 
@@ -420,7 +481,9 @@ tr:nth-child(even) {
 
 import {
     initializeApp
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+}
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
 
 import {
     getAuth,
@@ -428,12 +491,18 @@ import {
     signInWithPopup,
     onAuthStateChanged,
     signOut
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+}
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
 /* ================================================= */
-/* YOUR FIREBASE CONFIG */
+/* FIREBASE CONFIG */
 /* ================================================= */
+
+/*
+   یہاں اپنی Firebase Web App کی
+   اصل configuration ڈالیں۔
+*/
 
 const firebaseConfig = {
 
@@ -458,25 +527,27 @@ const firebaseConfig = {
 
 
 /* ================================================= */
-/* FIREBASE START */
+/* START FIREBASE */
 /* ================================================= */
 
 const app =
     initializeApp(firebaseConfig);
 
+
 const auth =
     getAuth(app);
+
 
 const provider =
     new GoogleAuthProvider();
 
 
 /* ================================================= */
-/* GOOGLE LOGIN */
+/* LOGIN WITH GOOGLE */
 /* ================================================= */
 
 document
-.getElementById("googleLoginBtn")
+.getElementById("loginGoogleBtn")
 .addEventListener(
     "click",
     async function() {
@@ -506,6 +577,40 @@ document
 
 
 /* ================================================= */
+/* SIGN IN WITH GOOGLE */
+/* ================================================= */
+
+document
+.getElementById("signInGoogleBtn")
+.addEventListener(
+    "click",
+    async function() {
+
+        try {
+
+            await signInWithPopup(
+                auth,
+                provider
+            );
+
+        }
+
+        catch(error) {
+
+            console.error(error);
+
+            alert(
+                "Google Sign in failed:\n" +
+                error.message
+            );
+
+        }
+
+    }
+);
+
+
+/* ================================================= */
 /* AUTH STATE */
 /* ================================================= */
 
@@ -515,32 +620,43 @@ onAuthStateChanged(
 
         if (user) {
 
+            /*
+               Google authentication successful
+            */
+
             document
             .getElementById("loginPage")
             .style.display = "none";
+
 
             document
             .getElementById("websitePage")
             .style.display = "block";
 
 
-            const photo =
-                user.photoURL
-                ?
-                `<img id="userPhoto"
-                    src="${user.photoURL}">
-                `
-                :
-                "";
+            let userPhoto = "";
+
+            if (user.photoURL) {
+
+                userPhoto = `
+                    <img
+                        id="userPhoto"
+                        src="${user.photoURL}"
+                    >
+                `;
+
+            }
 
 
             document
             .getElementById("userInfo")
             .innerHTML =
-                photo +
+                userPhoto +
                 "Signed in as: " +
                 escapeHTML(
-                    user.displayName || user.email
+                    user.displayName ||
+                    user.email ||
+                    "Google User"
                 );
 
 
@@ -553,6 +669,7 @@ onAuthStateChanged(
             document
             .getElementById("loginPage")
             .style.display = "flex";
+
 
             document
             .getElementById("websitePage")
@@ -574,7 +691,20 @@ document
     "click",
     async function() {
 
-        await signOut(auth);
+        try {
+
+            await signOut(auth);
+
+        }
+
+        catch(error) {
+
+            alert(
+                "Logout failed: " +
+                error.message
+            );
+
+        }
 
     }
 );
@@ -661,6 +791,7 @@ let friends =
         localStorage.getItem("friends")
     );
 
+
 if (!friends) {
 
     friends = defaultFriends;
@@ -691,6 +822,10 @@ document
 );
 
 
+/* ================================================= */
+/* CANCEL */
+/* ================================================= */
+
 document
 .getElementById("cancelBtn")
 .addEventListener(
@@ -705,21 +840,26 @@ function hideForm() {
     .getElementById("addForm")
     .style.display = "none";
 
+
     document
     .getElementById("nameInput")
     .value = "";
+
 
     document
     .getElementById("phoneInput")
     .value = "";
 
+
     document
     .getElementById("addressInput")
     .value = "";
 
+
     document
     .getElementById("photoInput")
     .value = "";
+
 
     document
     .getElementById("photoPreview")
@@ -743,8 +883,10 @@ document
 
         if (!file) return;
 
+
         const reader =
             new FileReader();
+
 
         reader.onload =
             function(e) {
@@ -754,13 +896,16 @@ document
                         "photoPreview"
                     );
 
+
                 preview.src =
                     e.target.result;
+
 
                 preview.style.display =
                     "block";
 
             };
+
 
         reader.readAsDataURL(file);
 
@@ -769,7 +914,7 @@ document
 
 
 /* ================================================= */
-/* ADD FRIEND */
+/* SAVE BUTTON */
 /* ================================================= */
 
 document
@@ -780,6 +925,10 @@ document
 );
 
 
+/* ================================================= */
+/* ADD FRIEND */
+/* ================================================= */
+
 function addFriend() {
 
     const name =
@@ -788,17 +937,20 @@ function addFriend() {
         .value
         .trim();
 
+
     const phone =
         document
         .getElementById("phoneInput")
         .value
         .trim();
 
+
     const address =
         document
         .getElementById("addressInput")
         .value
         .trim();
+
 
     const photoInput =
         document
@@ -827,8 +979,10 @@ function addFriend() {
         const file =
             photoInput.files[0];
 
+
         const reader =
             new FileReader();
+
 
         reader.onload =
             function(e) {
@@ -841,6 +995,7 @@ function addFriend() {
                 );
 
             };
+
 
         reader.readAsDataURL(file);
 
@@ -891,6 +1046,10 @@ function saveFriend(
 
     hideForm();
 
+    alert(
+        "Friend added successfully! ✅"
+    );
+
 }
 
 
@@ -904,6 +1063,7 @@ function renderTable() {
         document.getElementById(
             "tableBody"
         );
+
 
     tableBody.innerHTML = "";
 
@@ -936,17 +1096,21 @@ function renderTable() {
 
                 </td>
 
+
                 <td>
                     ${escapeHTML(friend.name)}
                 </td>
+
 
                 <td>
                     ${escapeHTML(friend.phone)}
                 </td>
 
+
                 <td>
                     ${escapeHTML(friend.address)}
                 </td>
+
 
                 <td>
 
@@ -958,6 +1122,7 @@ function renderTable() {
                     </button>
 
                 </td>
+
             `;
 
 
@@ -982,7 +1147,7 @@ function renderTable() {
 
 
 /* ================================================= */
-/* DELETE */
+/* DELETE FRIEND */
 /* ================================================= */
 
 function deleteFriend(index) {
@@ -998,10 +1163,12 @@ function deleteFriend(index) {
             1
         );
 
+
         localStorage.setItem(
             "friends",
             JSON.stringify(friends)
         );
+
 
         renderTable();
 
@@ -1021,7 +1188,9 @@ document
     function() {
 
         const search =
-            this.value.toLowerCase();
+            this.value
+            .toLowerCase();
+
 
         const rows =
             document
@@ -1040,6 +1209,7 @@ document
                 .innerText
                 .toLowerCase();
 
+
             rows[i].style.display =
                 text.includes(search)
                 ? ""
@@ -1052,21 +1222,29 @@ document
 
 
 /* ================================================= */
-/* SECURITY */
+/* ESCAPE HTML */
 /* ================================================= */
 
 function escapeHTML(text) {
 
     return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
 
-}
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-</script>
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-</body>
-            </html>
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        
