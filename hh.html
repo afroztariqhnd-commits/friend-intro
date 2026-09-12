@@ -1,489 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Friends Directory</title>
-
-<style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    background: #000;
-    color: white;
-    font-family: Arial, sans-serif;
-}
-
-/* ================= LOGIN PAGE ================= */
-
-#loginPage {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-.login-box {
-    width: 100%;
-    max-width: 400px;
-    background: #111;
-    border: 1px solid #333;
-    border-radius: 18px;
-    padding: 35px 25px;
-    text-align: center;
-    box-shadow: 0 0 25px rgba(255,255,255,0.08);
-}
-
-.login-box h1 {
-    margin: 0 0 10px;
-}
-
-.login-box p {
-    color: #aaa;
-    margin-bottom: 25px;
-}
-
-/* GOOGLE BUTTON */
-
-.google-btn {
-    width: 100%;
-    padding: 14px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 8px;
-    background: white;
-    color: #222;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.google-btn:hover {
-    background: #eee;
-}
-
-.google-icon {
-    font-size: 19px;
-    margin-right: 8px;
-}
-
-.login-note {
-    color: #777;
-    font-size: 12px;
-    margin-top: 18px;
-}
-
-/* ================= WEBSITE ================= */
-
-#websitePage {
-    display: none;
-    padding: 20px;
-}
-
-.header {
-    text-align: center;
-}
-
-.header h1 {
-    margin-bottom: 8px;
-}
-
-.header h3 {
-    color: #00ff88;
-    font-size: 25px;
-}
-
-/* USER */
-
-#userInfo {
-    margin: 15px;
-    color: #aaa;
-}
-
-#userPhoto {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-    vertical-align: middle;
-    margin-right: 8px;
-}
-
-/* LOGOUT */
-
-.logout-btn {
-    background: #e60000;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-/* SEARCH */
-
-#searchBox {
-    display: block;
-    width: 90%;
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #555;
-    font-size: 16px;
-}
-
-/* ADD BUTTON */
-
-#addBtn {
-    display: block;
-    margin: 15px auto;
-    padding: 12px 22px;
-    background: #00cc66;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* ADD FORM */
-
-#addForm {
-    display: none;
-    width: 90%;
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #111;
-    border: 1px solid #444;
-    border-radius: 12px;
-}
-
-#addForm h2 {
-    text-align: center;
-    color: #00ff88;
-}
-
-#addForm input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border-radius: 7px;
-    border: 1px solid #555;
-    font-size: 16px;
-}
-
-#photoPreview {
-    display: none;
-    width: 90px;
-    height: 90px;
-    margin: 10px auto;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #00ff88;
-}
-
-.form-buttons {
-    text-align: center;
-}
-
-.form-buttons button {
-    padding: 11px 18px;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-    margin: 5px;
-}
-
-#saveBtn {
-    background: #008cff;
-    color: white;
-}
-
-#cancelBtn {
-    background: #555;
-    color: white;
-}
-
-/* TABLE */
-
-.table-container {
-    width: 100%;
-    overflow-x: auto;
-    margin-top: 20px;
-}
-
-table {
-    width: 100%;
-    min-width: 750px;
-    border-collapse: collapse;
-}
-
-th,
-td {
-    border: 1px solid white;
-    padding: 10px;
-    text-align: center;
-}
-
-th {
-    background: #222;
-    color: #00ff88;
-}
-
-tr:nth-child(even) {
-    background: #111;
-}
-
-.profile-img {
-    width: 55px;
-    height: 55px;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.delete-btn {
-    background: #e60000;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 7px;
-    cursor: pointer;
-}
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-
-    #websitePage {
-        padding: 10px;
-    }
-
-    .header h1 {
-        font-size: 24px;
-    }
-
-    .header h3 {
-        font-size: 21px;
-    }
-}
-</style>
-</head>
-
-<body>
-
-
-<!-- ================================================= -->
-<!-- LOGIN / SIGN-IN PAGE -->
-<!-- ================================================= -->
-
-<div id="loginPage">
-
-    <div class="login-box">
-
-        <h1>🔐 Friends Directory</h1>
-
-        <p>
-            Login or Sign in with your Google account
-        </p>
-
-
-        <!-- LOGIN -->
-
-        <button
-            class="google-btn"
-            id="loginGoogleBtn"
-        >
-            <span class="google-icon">G</span>
-            Login with Google
-        </button>
-
-
-        <!-- SIGN IN -->
-
-        <button
-            class="google-btn"
-            id="signInGoogleBtn"
-        >
-            <span class="google-icon">G</span>
-            Sign in with Google
-        </button>
-
-
-        <div class="login-note">
-            Secure authentication by Google
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- FRIENDS DIRECTORY -->
-<!-- ================================================= -->
-
-<div id="websitePage">
-
-    <div class="header">
-
-        <h1>
-            Welcome! This is my first website.
-        </h1>
-
-        <h3>
-            FRIENDS DIRECTORY
-        </h3>
-
-
-        <div id="userInfo"></div>
-
-
-        <button
-            class="logout-btn"
-            id="logoutBtn"
-        >
-            Logout
-        </button>
-
-    </div>
-
-
-    <!-- SEARCH -->
-
-    <input
-        type="text"
-        id="searchBox"
-        placeholder="🔍 Search friend..."
-    >
-
-
-    <!-- ADD NEW -->
-
-    <button id="addBtn">
-        ➕ Add New
-    </button>
-
-
-    <!-- ADD FORM -->
-
-    <div id="addForm">
-
-        <h2>
-            Add New Friend
-        </h2>
-
-
-        <!-- PHOTO -->
-
-        <input
-            type="file"
-            id="photoInput"
-            accept="image/*"
-        >
-
-
-        <img
-            id="photoPreview"
-            alt="Photo Preview"
-        >
-
-
-        <!-- NAME -->
-
-        <input
-            type="text"
-            id="nameInput"
-            placeholder="Enter Name"
-        >
-
-
-        <!-- PHONE -->
-
-        <input
-            type="tel"
-            id="phoneInput"
-            placeholder="Enter Phone Number"
-        >
-
-
-        <!-- ADDRESS -->
-
-        <input
-            type="text"
-            id="addressInput"
-            placeholder="Enter Address"
-        >
-
-
-        <div class="form-buttons">
-
-            <button id="saveBtn">
-                💾 Save
-            </button>
-
-
-            <button id="cancelBtn">
-                ❌ Cancel
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- TABLE -->
-
-    <div class="table-container">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Photo</th>
-
-                    <th>Name</th>
-
-                    <th>Phone Number</th>
-
-                    <th>Address</th>
-
-                    <th>Action</th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody id="tableBody"></tbody>
-
-        </table>
-
-    </div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- FIREBASE -->
-<!-- ================================================= -->
-
 <script type="module">
 
-import {
-    initializeApp
-}
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+/* ================================================= */
+/* FIREBASE */
+/* ================================================= */
 
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
 import {
     getAuth,
@@ -499,29 +21,21 @@ from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 /* FIREBASE CONFIG */
 /* ================================================= */
 
-/*
-   یہاں اپنی Firebase Web App کی
-   اصل configuration ڈالیں۔
-*/
-
 const firebaseConfig = {
 
-    apiKey: "YOUR_API_KEY",
+    apiKey: "AIzaSyBl9aJn1h05COwHRpJCkUtCdalhynVHPQM",
 
-    authDomain:
-        "YOUR_PROJECT.firebaseapp.com",
+    authDomain: "friend-dff9f.firebaseapp.com",
 
-    projectId:
-        "YOUR_PROJECT_ID",
+    projectId: "friend-dff9f",
 
-    storageBucket:
-        "YOUR_PROJECT.firebasestorage.app",
+    storageBucket: "friend-dff9f.firebasestorage.app",
 
-    messagingSenderId:
-        "YOUR_MESSAGING_SENDER_ID",
+    messagingSenderId: "409798205367",
 
-    appId:
-        "YOUR_APP_ID"
+    appId: "1:409798205367:web:8802ad52ad1103a501d232",
+
+    measurementId: "G-5DWVDHW3RY"
 
 };
 
@@ -530,135 +44,94 @@ const firebaseConfig = {
 /* START FIREBASE */
 /* ================================================= */
 
-const app =
-    initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
+const auth = getAuth(app);
 
-const auth =
-    getAuth(app);
-
-
-const provider =
-    new GoogleAuthProvider();
+const provider = new GoogleAuthProvider();
 
 
 /* ================================================= */
-/* LOGIN WITH GOOGLE */
+/* GOOGLE LOGIN */
 /* ================================================= */
 
-document
-.getElementById("loginGoogleBtn")
-.addEventListener(
-    "click",
-    async function() {
+window.googleLogin = async function () {
 
-        try {
+    try {
 
-            await signInWithPopup(
-                auth,
-                provider
-            );
-
-        }
-
-        catch(error) {
-
-            console.error(error);
-
-            alert(
-                "Google Login failed:\n" +
-                error.message
-            );
-
-        }
+        await signInWithPopup(
+            auth,
+            provider
+        );
 
     }
-);
 
+    catch (error) {
 
-/* ================================================= */
-/* SIGN IN WITH GOOGLE */
-/* ================================================= */
+        console.error(error);
 
-document
-.getElementById("signInGoogleBtn")
-.addEventListener(
-    "click",
-    async function() {
-
-        try {
-
-            await signInWithPopup(
-                auth,
-                provider
-            );
-
-        }
-
-        catch(error) {
-
-            console.error(error);
-
-            alert(
-                "Google Sign in failed:\n" +
-                error.message
-            );
-
-        }
+        alert(
+            "Google Login failed:\n\n" +
+            error.message
+        );
 
     }
-);
+
+};
 
 
 /* ================================================= */
-/* AUTH STATE */
+/* LOGOUT */
+/* ================================================= */
+
+window.logout = async function () {
+
+    try {
+
+        await signOut(auth);
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Logout failed:\n\n" +
+            error.message
+        );
+
+    }
+
+};
+
+
+/* ================================================= */
+/* FIREBASE LOGIN CHECK */
 /* ================================================= */
 
 onAuthStateChanged(
     auth,
-    function(user) {
+    function (user) {
+
+        const loginPage =
+            document.getElementById(
+                "loginPage"
+            );
+
+        const websitePage =
+            document.getElementById(
+                "websitePage"
+            );
+
 
         if (user) {
 
-            /*
-               Google authentication successful
-            */
+            loginPage.style.display =
+                "none";
 
-            document
-            .getElementById("loginPage")
-            .style.display = "none";
-
-
-            document
-            .getElementById("websitePage")
-            .style.display = "block";
-
-
-            let userPhoto = "";
-
-            if (user.photoURL) {
-
-                userPhoto = `
-                    <img
-                        id="userPhoto"
-                        src="${user.photoURL}"
-                    >
-                `;
-
-            }
-
-
-            document
-            .getElementById("userInfo")
-            .innerHTML =
-                userPhoto +
-                "Signed in as: " +
-                escapeHTML(
-                    user.displayName ||
-                    user.email ||
-                    "Google User"
-                );
-
+            websitePage.style.display =
+                "block";
 
             renderTable();
 
@@ -666,43 +139,11 @@ onAuthStateChanged(
 
         else {
 
-            document
-            .getElementById("loginPage")
-            .style.display = "flex";
+            loginPage.style.display =
+                "flex";
 
-
-            document
-            .getElementById("websitePage")
-            .style.display = "none";
-
-        }
-
-    }
-);
-
-
-/* ================================================= */
-/* LOGOUT */
-/* ================================================= */
-
-document
-.getElementById("logoutBtn")
-.addEventListener(
-    "click",
-    async function() {
-
-        try {
-
-            await signOut(auth);
-
-        }
-
-        catch(error) {
-
-            alert(
-                "Logout failed: " +
-                error.message
-            );
+            websitePage.style.display =
+                "none";
 
         }
 
@@ -720,7 +161,7 @@ const defaultFriends = [
         name: "AFROZ",
         phone: "+923214429073",
         address: "MOHALLAH RASOOL NAGER",
-        photo: "afroz.jpeg"
+        photo: "ssss.jpeg"
     },
 
     {
@@ -805,131 +246,101 @@ if (!friends) {
 
 
 /* ================================================= */
-/* ADD FORM */
+/* SHOW FORM */
 /* ================================================= */
 
-document
-.getElementById("addBtn")
-.addEventListener(
-    "click",
-    function() {
+window.showForm = function () {
 
-        document
-        .getElementById("addForm")
-        .style.display = "block";
+    document.getElementById(
+        "addForm"
+    ).style.display = "block";
 
-    }
-);
+};
 
 
 /* ================================================= */
-/* CANCEL */
+/* HIDE FORM */
 /* ================================================= */
 
-document
-.getElementById("cancelBtn")
-.addEventListener(
-    "click",
-    hideForm
-);
+window.hideForm = function () {
 
+    document.getElementById(
+        "addForm"
+    ).style.display = "none";
 
-function hideForm() {
+    document.getElementById(
+        "nameInput"
+    ).value = "";
 
-    document
-    .getElementById("addForm")
-    .style.display = "none";
+    document.getElementById(
+        "phoneInput"
+    ).value = "";
 
+    document.getElementById(
+        "addressInput"
+    ).value = "";
 
-    document
-    .getElementById("nameInput")
-    .value = "";
+    document.getElementById(
+        "photoInput"
+    ).value = "";
 
+    document.getElementById(
+        "photoPreview"
+    ).style.display = "none";
 
-    document
-    .getElementById("phoneInput")
-    .value = "";
-
-
-    document
-    .getElementById("addressInput")
-    .value = "";
-
-
-    document
-    .getElementById("photoInput")
-    .value = "";
-
-
-    document
-    .getElementById("photoPreview")
-    .style.display = "none";
-
-}
+};
 
 
 /* ================================================= */
 /* PHOTO PREVIEW */
 /* ================================================= */
 
-document
-.getElementById("photoInput")
-.addEventListener(
-    "change",
-    function(event) {
+window.previewPhoto = function (event) {
 
-        const file =
-            event.target.files[0];
-
-        if (!file) return;
+    const file =
+        event.target.files[0];
 
 
-        const reader =
-            new FileReader();
+    if (!file) {
 
-
-        reader.onload =
-            function(e) {
-
-                const preview =
-                    document.getElementById(
-                        "photoPreview"
-                    );
-
-
-                preview.src =
-                    e.target.result;
-
-
-                preview.style.display =
-                    "block";
-
-            };
-
-
-        reader.readAsDataURL(file);
+        return;
 
     }
-);
 
 
-/* ================================================= */
-/* SAVE BUTTON */
-/* ================================================= */
+    const reader =
+        new FileReader();
 
-document
-.getElementById("saveBtn")
-.addEventListener(
-    "click",
-    addFriend
-);
+
+    reader.onload =
+        function (e) {
+
+            const preview =
+                document.getElementById(
+                    "photoPreview"
+                );
+
+
+            preview.src =
+                e.target.result;
+
+
+            preview.style.display =
+                "block";
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+};
 
 
 /* ================================================= */
 /* ADD FRIEND */
 /* ================================================= */
 
-function addFriend() {
+window.addFriend = function () {
 
     const name =
         document
@@ -953,8 +364,9 @@ function addFriend() {
 
 
     const photoInput =
-        document
-        .getElementById("photoInput");
+        document.getElementById(
+            "photoInput"
+        );
 
 
     if (
@@ -985,7 +397,7 @@ function addFriend() {
 
 
         reader.onload =
-            function(e) {
+            function (e) {
 
                 saveFriend(
                     name,
@@ -1012,7 +424,7 @@ function addFriend() {
 
     }
 
-}
+};
 
 
 /* ================================================= */
@@ -1029,8 +441,11 @@ function saveFriend(
     friends.push({
 
         name: name,
+
         phone: phone,
+
         address: address,
+
         photo: photo
 
     });
@@ -1044,7 +459,8 @@ function saveFriend(
 
     renderTable();
 
-    hideForm();
+    window.hideForm();
+
 
     alert(
         "Friend added successfully! ✅"
@@ -1054,7 +470,7 @@ function saveFriend(
 
 
 /* ================================================= */
-/* RENDER TABLE */
+/* DISPLAY TABLE */
 /* ================================================= */
 
 function renderTable() {
@@ -1069,7 +485,7 @@ function renderTable() {
 
 
     friends.forEach(
-        function(friend, index) {
+        function (friend, index) {
 
             const row =
                 document.createElement(
@@ -1116,7 +532,7 @@ function renderTable() {
 
                     <button
                         class="delete-btn"
-                        data-index="${index}"
+                        onclick="deleteFriend(${index})"
                     >
                         🗑️ Delete
                     </button>
@@ -1126,19 +542,9 @@ function renderTable() {
             `;
 
 
-            row
-            .querySelector(".delete-btn")
-            .addEventListener(
-                "click",
-                function() {
-
-                    deleteFriend(index);
-
-                }
+            tableBody.appendChild(
+                row
             );
-
-
-            tableBody.appendChild(row);
 
         }
     );
@@ -1150,7 +556,7 @@ function renderTable() {
 /* DELETE FRIEND */
 /* ================================================= */
 
-function deleteFriend(index) {
+window.deleteFriend = function (index) {
 
     if (
         confirm(
@@ -1174,55 +580,63 @@ function deleteFriend(index) {
 
     }
 
-}
+};
 
 
 /* ================================================= */
 /* SEARCH */
 /* ================================================= */
 
-document
-.getElementById("searchBox")
-.addEventListener(
-    "input",
-    function() {
+window.searchTable = function () {
 
-        const search =
-            this.value
+    const search =
+        document
+        .getElementById("searchBox")
+        .value
+        .toLowerCase();
+
+
+    const rows =
+        document
+        .getElementById("tableBody")
+        .getElementsByTagName("tr");
+
+
+    for (
+        let i = 0;
+        i < rows.length;
+        i++
+    ) {
+
+        const text =
+            rows[i]
+            .innerText
             .toLowerCase();
 
 
-        const rows =
-            document
-            .getElementById("tableBody")
-            .getElementsByTagName("tr");
-
-
-        for (
-            let i = 0;
-            i < rows.length;
-            i++
+        if (
+            text.includes(search)
         ) {
 
-            const text =
-                rows[i]
-                .innerText
-                .toLowerCase();
+            rows[i].style.display =
+                "";
 
+        }
+
+        else {
 
             rows[i].style.display =
-                text.includes(search)
-                ? ""
-                : "none";
+                "none";
 
         }
 
     }
-);
+
+};
 
 
 /* ================================================= */
-/* ESCAPE HTML */
+/* SECURITY */
 /* ================================================= */
 
 function escapeHTML(text) {
@@ -1247,4 +661,13 @@ function escapeHTML(text) {
         .replace(
             /"/g,
             "&quot;"
-        
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+    </script>
