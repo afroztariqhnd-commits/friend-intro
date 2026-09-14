@@ -1,1 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friends Directory</title>
 
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #0a0e17;
+    color: #e2e8f0;
+    font-family: Arial, sans-serif;
+}
+
+/* LOGIN / SIGNUP */
+#loginPage {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    background: #131b2e;
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: 18px;
+    padding: 30px 22px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(0, 229, 255, 0.15), 0 0 10px rgba(138, 43, 226, 0.1);
+}
+
+.login-box h1 {
+    margin-bottom: 8px;
+    color: #00e5ff;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+.login-box p {
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #1e293b;
+    color: #f8fafc;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.login-box input:focus {
+    border-color: #00e5ff;
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #008cff, #00e5ff);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 140, 255, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 229, 255, 0.5);
+}
+
+.divider {
+    margin: 18px 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.google-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    transition: background 0.2s;
+}
+
+.google-btn:hover {
+    background: #f1f5f9;
+}
+
+.toggle-mode {
+    margin-top: 18px;
+    color: #00ff88;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+/* WEBSITE */
+#websitePage {
+    display: none;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+}
+
+.header h1 {
+    margin-bottom: 8px;
+    color: #f8fafc;
+}
+
+.header h3 {
+    color: #00ff88;
+    font-size: 28px;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+}
+
+.user-info {
+    color: #38bdf8;
+    font-size: 14px;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.logout-btn {
+    background: linear-gradient(135deg, #ff0055, #ff4d4d);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(255, 0, 85, 0.3);
+    transition: transform 0.2s;
+}
+
+.logout-btn:hover {
+    transform: scale(1.05);
+}
+
+/* SEARCH & ADD */
+#searchBox {
+    display: block;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid #00e5ff;
+    background: #131b2e;
+    color: #f8fafc;
+    font-size: 16px;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.15);
+    outline: none;
+}
+
+#searchBox:focus {
+    box-shadow: 0 0 18px rgba(0, 229, 255, 0.35);
+}
+
+#addBtn {
+    display: block;
+    margin: 15px auto;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #00cc66, #00ff88);
+    color: #032b14;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#addBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.5);
+}
+
+#addForm {
+    display: none;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #131b2e;
+    border: 1px solid #3b82f6;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+#addForm h2 {
+    text-align: center;
+    color: #00ff88;
+}
+
+#addForm input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 7px;
+    border: 1px solid #334155;
+    background: #1e293b;
+    color: #f8fafc;
+    font-size: 16px;
+    outline: none;
+}
+
+#addForm input:focus {
+    border-color: #38bdf8;
+}
+
+#photoPreview {
+    display: none;
+    width: 90px;
+    height: 90px;
+    margin: 10px auto;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #00ff88;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+}
+
+.form-buttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.form-buttons button {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    margin: 5px;
+    font-weight: bold;
+}
+
+#saveBtn { background: #008cff; color: white; box-shadow: 0 4px 10px rgba(0, 140, 255, 0.3); }
+#cancelBtn { background: #475569; color: white; }
+
+/* TABLE */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    min-width: 750px;
+    border-collapse: collapse;
+    background: #131b2e;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+th, td {
+    border: 1px solid #1e293b;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background: #0f172a;
+    color: #00ff88;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+tr:nth-child(even) { background: #0a0e17; }
+tr:hover { background: rgba(0, 229, 255, 0.05); }
+
+.profile-img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #00e5ff;
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+.delete-btn {
+    background: linear-gradient(135deg, #ff0055, #ff4d4d);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(255, 0, 85, 0.3);
+    transition: transform 0.2s;
+}
+
+.delete-btn:hover {
+    transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUTH / LOGIN PAGE -->
+<div id="loginPage">
+    <div class="login-box">
+        <h1 id="authTitle">🔐 Welcome</h1>
+        <p id="authSub">Sign in to access Friends Directory</p>
+
+        <!-- Email & Password Form -->
+        <input type="email" id="emailInput" placeholder="Email Address">
+        <input type="password" id="passwordInput" placeholder="Password (min 6 chars)">
+        
+        <button class="auth-btn" id="emailAuthBtn" onclick="handleEmailAuth()">Sign In</button>
+
+        <div class="divider">────── OR ──────</div>
+
+        <!-- Google Login -->
+        <button class="google-btn" onclick="googleLogin()">
+            🌐 Continue with Google
+        </button>
+
+        <div class="toggle-mode" id="toggleAuthMode" onclick="toggleMode()">
+            Don't have an account? Sign Up
+        </div>
+    </div>
+</div>
+
+<!-- MAIN WEBSITE -->
+<div id="websitePage">
+    <div class="header">
+        <h1>Welcome!</h1>
+        <div class="user-info" id="userDisplay">Logged in as: ...</div>
+        <h3>FRIENDS DIRECTORY</h3>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- SEARCH -->
+    <input type="text" id="searchBox" placeholder="🔍 Search friend..." onkeyup="searchTable()">
+
+    <!-- ADD BUTTON -->
+    <button id="addBtn" onclick="showForm()">➕ Add New</button>
+
+    <!-- ADD FORM -->
+    <div id="addForm">
+        <h2>Add New Friend</h2>
+        <input type="file" id="photoInput" accept="image/*" onchange="previewPhoto(event)">
+        <img id="photoPreview" alt="Photo Preview">
+        <input type="text" id="nameInput" placeholder="Enter Name">
+        <input type="tel" id="phoneInput" placeholder="Enter Phone Number">
+        <input type="text" id="addressInput" placeholder="Enter Address">
+
+        <div class="form-buttons">
+            <button id="saveBtn" onclick="addFriend()">💾 Save</button>
+            <button id="cancelBtn" onclick="hideForm()">❌ Cancel</button>
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- FIREBASE SDK & APP SCRIPT -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { 
+    getAuth, 
+    GoogleAuthProvider, 
+    signInWithPopup, 
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    onAuthStateChanged, 
+    signOut 
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { 
+    getFirestore, 
+    collection, 
+    addDoc, 
+    deleteDoc, 
+    doc, 
+    onSnapshot 
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { 
+    getStorage, 
+    ref, 
+    uploadBytes, 
+    getDownloadURL 
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
+
+/* FIREBASE CONFIG */
+const firebaseConfig = {
+    apiKey: "AIzaSyBl9aJn1h05COwHRpJCkUtCdalhynVHPQM",
+    authDomain: "friend-dff9f.firebaseapp.com",
+    projectId: "friend-dff9f",
+    storageBucket: "friend-dff9f.firebasestorage.app",
+    messagingSenderId: "409798205367",
+    appId: "1:409798205367:web:8802ad52ad1103a501d232",
+    measurementId: "G-5DWVDHW3RY"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
+const provider = new GoogleAuthProvider();
+
+/* DEFAULT SAMPLE NAMES AND DETAILS */
+const defaultFriends = [
+    { name: "AFROZ", phone: "+923214429073", address: "MOHALLAH RASOOL NAGER", photo: "afroz.jpeg" },
+    { name: "Luqman♥️", phone: "+923330638966", address: "LAHORI BAZAIR", photo: "koda.jpeg" },
+    { name: "Hamza", phone: "+923271692102", address: "MAHRIA TOWN", photo: "hamza.jpeg" },
+    { name: "ISMAIL♥️", phone: "+923005590340", address: "AZEEM TOWN", photo: "isma.jpeg" },
+    { name: "ABUBAKER♥️", phone: "+923217047036", address: "MOHALLAH RASOOL NAGER", photo: "tfrt.jpeg" },
+    { name: "Ayan♥️", phone: "+923001234567", address: "MODEL TOWN", photo: "ayan.jpeg" },
+    { name: "Harry", phone: "+923129876543", address: "GULBERG", photo: "harry.jpeg" },
+    { name: "Ahmad", phone: "+923456789012", address: "DEFENCE", photo: "ahmad.jpeg" },
+    { name: "Bajwa", phone: "+923225554433", address: "CANTT AREA", photo: "bajwa.jpeg" }
+];
+
+let isSignUpMode = false;
+let currentUser = null;
+let unsubscribeSnapshot = null;
+let selectedFile = null;
+
+/* TOGGLE LOGIN / SIGNUP MODE */
+window.toggleMode = function() {
+    isSignUpMode = !isSignUpMode;
+    const title = document.getElementById("authTitle");
+    const sub = document.getElementById("authSub");
+    const btn = document.getElementById("emailAuthBtn");
+    const toggleBtn = document.getElementById("toggleAuthMode");
+
+    if (isSignUpMode) {
+        title.innerText = "📝 Create Account";
+        sub.innerText = "Sign up to start managing directory";
+        btn.innerText = "Sign Up";
+        toggleBtn.innerText = "Already have an account? Sign In";
+    } else {
+        title.innerText = "🔐 Welcome";
+        sub.innerText = "Sign in to access Friends Directory";
+        btn.innerText = "Sign In";
+        toggleBtn.innerText = "Don't have an account? Sign Up";
+    }
+};
+
+/* EMAIL & PASSWORD AUTHENTICATION */
+window.handleEmailAuth = async function() {
+    const email = document.getElementById("emailInput").value.trim();
+    const password = document.getElementById("passwordInput").value.trim();
+
+    if (!email || !password) {
+        alert("Please fill in both Email and Password.");
+        return;
+    }
+
+    try {
+        if (isSignUpMode) {
+            await createUserWithEmailAndPassword(auth, email, password);
+            alert("Account created successfully!");
+        } else {
+            await signInWithEmailAndPassword(auth, email, password);
+        }
+    } catch (error) {
+        console.error(error);
+        alert("Authentication Error:\n" + error.message);
+    }
+};
+
+/* GOOGLE LOGIN */
+window.googleLogin = async function () {
+    try {
+        await signInWithPopup(auth, provider);
+    } catch (error) {
+        console.error(error);
+        alert("Google Sign-In Error:\n" + error.message);
+    }
+};
+
+/* LOGOUT */
+window.logout = async function () {
+    try {
+        if (unsubscribeSnapshot) unsubscribeSnapshot();
+        await signOut(auth);
+    } catch (error) {
+        alert("Logout Error:\n" + error.message);
+    }
+};
+
+/* REAL-TIME AUTH STATE MONITOR */
+onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+    const loginPage = document.getElementById("loginPage");
+    const websitePage = document.getElementById("websitePage");
+    const userDisplay = document.getElementById("userDisplay");
+
+    if (user) {
+        loginPage.style.display = "none";
+        websitePage.style.display = "block";
+        userDisplay.innerText = "Logged in as: " + (user.displayName || user.email);
+        subscribeToFirestore();
+    } else {
+        loginPage.style.display = "flex";
+        websitePage.style.display = "none";
+        if (unsubscribeSnapshot) unsubscribeSnapshot();
+    }
+});
+
+function subscribeToFirestore() {
+    if (!currentUser) return;
+    const friendsRef = collection(db, "users", currentUser.uid, "friends");
+
+    unsubscribeSnapshot = onSnapshot(friendsRef, async (snapshot) => {
+        if (snapshot.empty) {
+            for (const item of defaultFriends) {
+                await addDoc(friendsRef, {
+                    ...item,
+                    createdAt: new Date().toISOString()
+                });
+            }
+            return;
+        }
+
+        const friendsData = [];
+        snapshot.forEach((docSnap) => {
+            friendsData.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        renderTable(friendsData);
+    });
+}
+
+window.showForm = function () {
+    document.getElementById("addForm").style.display = "block";
+};
+
+window.hideForm = function () {
+    document.getElementById("addForm").style.display = "none";
+    document.getElementById("nameInput").value = "";
+    document.getElementById("phoneInput").value = "";
+    document.getElementById("addressInput").value = "";
+    document.getElementById("photoInput").value = "";
+    document.getElementById("photoPreview").style.display = "none";
+    selectedFile = null;
+};
+
+window.previewPhoto = function (event) {
+    const file = event.target.files[0];
+    if (file) {
+        selectedFile = file;
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const preview = document.getElementById("photoPreview");
+            preview.src = e.target.result;
+            preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
+window.addFriend = async function () {
+    const name = document.getElementById("nameInput").value.trim();
+    const phone = document.getElementById("phoneInput").value.trim();
+    const address = document.getElementById("addressInput").value.trim();
+
+    if (!name || !phone || !address) {
+        alert("Please fill in all text fields.");
+        return;
+    }
+
+    const saveBtn = document.getElementById("saveBtn");
+    saveBtn.disabled = true;
+    saveBtn.innerText = "Saving...";
+
+    try {
+        let photoUrl = "https://via.placeholder.com/150";
+
+        if (selectedFile) {
+            const storageRef = ref(storage, `users/${currentUser.uid}/photos/${Date.now()}_${selectedFile.name}`);
+            await uploadBytes(storageRef, selectedFile);
+            photoUrl = await getDownloadURL(storageRef);
+        }
+
+        await addDoc(collection(db, "users", currentUser.uid, "friends"), {
+            name,
+            phone,
+            address,
+            photo: photoUrl,
+            createdAt: new Date().toISOString()
+        });
+
+        window.hideForm();
+    } catch (error) {
+        alert("Failed to save contact:\n" + error.message);
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerText = "💾 Save";
+    }
+};
+
+window.deleteFriend = async function (id) {
+    if (confirm("Are you sure you want to delete this contact?")) {
+        try {
+            await deleteDoc(doc(db, "users", currentUser.uid, "friends", id));
+        } catch (error) {
+            alert("Error deleting record: " + error.message);
+        }
+    }
+};
+
+window.searchTable = function () {
+    const filter = document.getElementById("searchBox").value.toUpperCase();
+    const rows = document.querySelectorAll("#tableBody tr");
+
+    rows.forEach(row => {
+        const text = row.innerText.toUpperCase();
+        row.style.display = text.includes(filter) ? "" : "none";
+    });
+};
+
+function renderTable(friendsList) {
+    const tbody = document.getElementById("tableBody");
+    tbody.innerHTML = "";
+
+    friendsList.forEach((friend) => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>
+                <img 
+                    src="${friend.photo}" 
+                    alt="${friend.name}" 
+                    class="profile-img"
+                    onerror="this.src='https://via.placeholder.com/150'"
+                >
+            </td>
+            <td>${friend.name}</td>
+            <td>${friend.phone}</td>
+            <td>${friend.address}</td>
+            <td>
+                <button class="delete-btn" onclick="deleteFriend('${friend.id}')">
+                    🗑️ Delete
+                </button>
+            </td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+}
+</script>
+</body>
+  </html>
+  
