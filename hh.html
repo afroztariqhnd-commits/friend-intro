@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -333,7 +333,6 @@ tr:hover { background: rgba(0, 229, 255, 0.05); }
         <h1 id="authTitle">🔐 Welcome</h1>
         <p id="authSub">Sign in to access Friends Directory</p>
 
-        <!-- Email & Password Form -->
         <input type="email" id="emailInput" placeholder="Email Address">
         <input type="password" id="passwordInput" placeholder="Password (min 6 chars)">
         
@@ -341,7 +340,6 @@ tr:hover { background: rgba(0, 229, 255, 0.05); }
 
         <div class="divider">────── OR ──────</div>
 
-        <!-- Google Login -->
         <button class="google-btn" onclick="googleLogin()">
             🌐 Continue with Google
         </button>
@@ -445,23 +443,23 @@ const provider = new GoogleAuthProvider();
 
 /* DEFAULT SAMPLE NAMES AND DETAILS */
 const defaultFriends = [
-    { name: "AFROZ", phone: "+923214429073", address: "MOHALLAH RASOOL NAGER", photo: "afroz.jpeg" },
-    { name: "Luqman♥️", phone: "+923330638966", address: "LAHORI BAZAIR", photo: "koda.jpeg" },
-    { name: "Hamza", phone: "+923271692102", address: "MAHRIA TOWN", photo: "hamza.jpeg" },
-    { name: "ISMAIL♥️", phone: "+923005590340", address: "AZEEM TOWN", photo: "isma.jpeg" },
-    { name: "ABUBAKER♥️", phone: "+923217047036", address: "MOHALLAH RASOOL NAGER", photo: "tfrt.jpeg" },
-    { name: "Ayan♥️", phone: "+923001234567", address: "MODEL TOWN", photo: "ayan.jpeg" },
-    { name: "Harry", phone: "+923129876543", address: "GULBERG", photo: "harry.jpeg" },
-    { name: "Ahmad", phone: "+923456789012", address: "DEFENCE", photo: "ahmad.jpeg" },
-    { name: "Bajwa", phone: "+923225554433", address: "CANTT AREA", photo: "bajwa.jpeg" }
+    { id: "1", name: "AFROZ", phone: "+923214429073", address: "MOHALLAH RASOOL NAGER", photo: "ssss.jpeg" },
+    { id: "2", name: "Luqman♥️", phone: "+923330638966", address: "LAHORI BAZAIR", photo: "koda.jpeg" },
+    { id: "3", name: "Hamza", phone: "+923271692102", address: "MAHRIA TOWN", photo: "hamza.jpeg" },
+    { id: "4", name: "ISMAIL♥️", phone: "+923005590340", address: "AZEEM TOWN", photo: "isma.jpeg" },
+    { id: "5", name: "ABUBAKER♥️", phone: "+923217047036", address: "MOHALLAH RASOOL NAGER", photo: "tfrt.jpeg" },
+    { id: "6", name: "Ayan♥️", phone: "+923001234567", address: "MODEL TOWN", photo: "ayan.jpeg" },
+    { id: "7", name: "Harry", phone: "+923129876543", address: "GULBERG", photo: "harry.jpeg" },
+    { id: "8", name: "Ahmad", phone: "+923456789012", address: "DEFENCE", photo: "ahmad.jpeg" },
+    { id: "9", name: "Bajwa", phone: "+923225554433", address: "CANTT AREA", photo: "bajwa.jpeg" }
 ];
 
+let localFriends = [...defaultFriends];
 let isSignUpMode = false;
 let currentUser = null;
 let unsubscribeSnapshot = null;
 let selectedFile = null;
 
-/* TOGGLE LOGIN / SIGNUP MODE */
 window.toggleMode = function() {
     isSignUpMode = !isSignUpMode;
     const title = document.getElementById("authTitle");
@@ -482,7 +480,6 @@ window.toggleMode = function() {
     }
 };
 
-/* EMAIL & PASSWORD AUTHENTICATION */
 window.handleEmailAuth = async function() {
     const email = document.getElementById("emailInput").value.trim();
     const password = document.getElementById("passwordInput").value.trim();
@@ -505,7 +502,6 @@ window.handleEmailAuth = async function() {
     }
 };
 
-/* GOOGLE LOGIN */
 window.googleLogin = async function () {
     try {
         await signInWithPopup(auth, provider);
@@ -515,7 +511,6 @@ window.googleLogin = async function () {
     }
 };
 
-/* LOGOUT */
 window.logout = async function () {
     try {
         if (unsubscribeSnapshot) unsubscribeSnapshot();
@@ -525,7 +520,6 @@ window.logout = async function () {
     }
 };
 
-/* REAL-TIME AUTH STATE MONITOR */
 onAuthStateChanged(auth, (user) => {
     currentUser = user;
     const loginPage = document.getElementById("loginPage");
@@ -536,6 +530,8 @@ onAuthStateChanged(auth, (user) => {
         loginPage.style.display = "none";
         websitePage.style.display = "block";
         userDisplay.innerText = "Logged in as: " + (user.displayName || user.email);
+        
+        renderTable(localFriends);
         subscribeToFirestore();
     } else {
         loginPage.style.display = "flex";
@@ -550,11 +546,19 @@ function subscribeToFirestore() {
 
     unsubscribeSnapshot = onSnapshot(friendsRef, async (snapshot) => {
         if (snapshot.empty) {
-            for (const item of defaultFriends) {
-                await addDoc(friendsRef, {
-                    ...item,
-                    createdAt: new Date().toISOString()
-                });
+            try {
+                for (const item of defaultFriends) {
+                    await addDoc(friendsRef, {
+                        name: item.name,
+                        phone: item.phone,
+                        address: item.address,
+                        photo: item.photo,
+                        createdAt: new Date().toISOString()
+                    });
+                }
+            } catch (err) {
+                console.warn("Firestore error, using default list:", err);
+                renderTable(defaultFriends);
             }
             return;
         }
@@ -563,7 +567,11 @@ function subscribeToFirestore() {
         snapshot.forEach((docSnap) => {
             friendsData.push({ id: docSnap.id, ...docSnap.data() });
         });
+        localFriends = friendsData;
         renderTable(friendsData);
+    }, (error) => {
+        console.warn("Firestore error, rendering default list:", error);
+        renderTable(defaultFriends);
     });
 }
 
@@ -609,39 +617,46 @@ window.addFriend = async function () {
     saveBtn.disabled = true;
     saveBtn.innerText = "Saving...";
 
-    try {
-        let photoUrl = "https://via.placeholder.com/150";
+    let photoUrl = "https://via.placeholder.com/150";
 
-        if (selectedFile) {
+    try {
+        if (selectedFile && currentUser) {
             const storageRef = ref(storage, `users/${currentUser.uid}/photos/${Date.now()}_${selectedFile.name}`);
             await uploadBytes(storageRef, selectedFile);
             photoUrl = await getDownloadURL(storageRef);
         }
 
-        await addDoc(collection(db, "users", currentUser.uid, "friends"), {
-            name,
-            phone,
-            address,
-            photo: photoUrl,
-            createdAt: new Date().toISOString()
-        });
-
-        window.hideForm();
+        if (currentUser) {
+            await addDoc(collection(db, "users", currentUser.uid, "friends"), {
+                name,
+                phone,
+                address,
+                photo: photoUrl,
+                createdAt: new Date().toISOString()
+            });
+        }
     } catch (error) {
-        alert("Failed to save contact:\n" + error.message);
+        console.warn("Error saving, updating local list:", error);
+        localFriends.push({ id: Date.now().toString(), name, phone, address, photo: photoUrl });
+        renderTable(localFriends);
     } finally {
         saveBtn.disabled = false;
         saveBtn.innerText = "💾 Save";
+        window.hideForm();
     }
 };
 
 window.deleteFriend = async function (id) {
     if (confirm("Are you sure you want to delete this contact?")) {
         try {
-            await deleteDoc(doc(db, "users", currentUser.uid, "friends", id));
+            if (currentUser) {
+                await deleteDoc(doc(db, "users", currentUser.uid, "friends", id));
+            }
         } catch (error) {
-            alert("Error deleting record: " + error.message);
+            console.warn("Error deleting:", error);
         }
+        localFriends = localFriends.filter(item => item.id !== id);
+        renderTable(localFriends);
     }
 };
 
@@ -686,5 +701,5 @@ function renderTable(friendsList) {
 }
 </script>
 </body>
-  </html>
-  
+            </html>
+    
